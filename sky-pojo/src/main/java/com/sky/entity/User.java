@@ -1,5 +1,6 @@
 package com.sky.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,9 +24,11 @@ public class User implements Serializable {
     private String openid;
 
     //姓名
+    @ApiModelProperty("用户名")
     private String name;
 
     //手机号
+    @ApiModelProperty("手机号")
     private String phone;
 
     //性别 0 女 1 男

@@ -1,6 +1,6 @@
 package com.sky.context;
 
-public class BaseContext {
+public class BaseContext implements AutoCloseable{
 
     public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
 
@@ -16,4 +16,8 @@ public class BaseContext {
         threadLocal.remove();
     }
 
+    @Override
+    public void close() throws Exception {
+        threadLocal.remove();
+    }
 }
