@@ -9,5 +9,15 @@
         VALUES (#{name},#{username},#{phone},#{sex},#{idNumber},#{password},#{createTime},#{updateTime},#{createUser},#{updateUser})
     </insert>
 
+    <select id="page" resultType="com.sky.entity.Employee">
+        SELECT * FROM employee
+        <where>
+            <if test="name != null and name != ''">
+                and NAME LIKE concat ('%',#{name},'%')
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
 
 </mapper>

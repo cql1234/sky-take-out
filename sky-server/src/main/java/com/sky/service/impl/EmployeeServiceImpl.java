@@ -1,5 +1,7 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
@@ -12,6 +14,7 @@ import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.DuplicateUsernameException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
+import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -84,6 +88,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(currentId);
         employeeMapper.addEmployee(employee);
         return employee;
+    }
+
+    /**
+     * 分页查询员工列表
+     * @param name
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageResult page(String name, int page, int pageSize) {
+
+        //开始分页
+        PageHelper.startPage(page, pageSize);
+
+        Page<Employee> employeePage = employeeMapper.page(name);
+
+        long total = employeePage.getTotal();
+        List<Employee> records = employeePage.getResult();
+
+
+
+        return new PageResult(total,records);
     }
 
 }
