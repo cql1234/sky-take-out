@@ -19,4 +19,25 @@ public interface EmployeeService {
 
 
     PageResult page(String name, int page, int pageSize);
+
+    /**
+     * 启用，禁用员工账号
+     * @param status
+     * @param id
+     */
+    void changeStatus(Integer status, Long id);
+
+    /**
+     * 根据id查询员工信息
+     * @param id
+     * @return
+     */
+    Employee findById(Long id);
+
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     */
+    void edit(EmployeeDTO employeeDTO);
 }

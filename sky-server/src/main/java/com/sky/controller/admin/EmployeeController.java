@@ -91,10 +91,31 @@ public class EmployeeController {
     @GetMapping("/page")
     @ApiOperation("员工分页查询")
     public Result<PageResult> page(String name,int page,int pageSize){
-
         PageResult pageResult = employeeService.page(name, page, pageSize);
-
         return Result.success(pageResult);
     }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用，禁用员工账号")
+    public Result<String> changeStatus(@PathVariable Integer status,Long id){
+        log.info("status:{},id:{}",status,id);
+        employeeService.changeStatus(status,id);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工")
+    public Result<Employee> findById(@PathVariable Long id){
+        Employee employee = employeeService.findById(id);
+        return Result.success(employee);
+    }
+
+    @PutMapping
+    @ApiOperation("编辑员工信息")
+    public Result<String> edit(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.edit(employeeDTO);
+        return Result.success();
+    }
+
 
 }
